@@ -70,7 +70,7 @@ impl CellType {
             CellType::YellowCrystal => 'C',
             CellType::YellowStar => '*',
             CellType::YellowGlowing => 'G',
-            CellType::GreenLemon => 'l',
+            CellType::GreenLemon => 'P', // ← poire
             CellType::GreenMine => 'M',
             CellType::GreenCrystal => 'C',
             CellType::GreenStar => '*',
