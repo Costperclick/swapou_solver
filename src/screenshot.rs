@@ -1,4 +1,4 @@
-use screenshots::Screen;
+use screenshots::{Screen, image::DynamicImage};
 use std::time::Instant;
 
 struct MainFrame {
@@ -20,7 +20,8 @@ impl MainFrame {
         (self.bottom_right.1 - self.top_left.1) as u32
     }
 }
-pub fn take_screenshot() {
+
+pub fn take_screenshot() -> DynamicImage {
     let _start = Instant::now();
     let screens = Screen::all().unwrap();
     let screen = screens[0];
@@ -34,6 +35,6 @@ pub fn take_screenshot() {
         .capture_area(frame.x(), frame.y(), frame.width(), frame.height())
         .unwrap();
 
-    main_frame.save("test_img/main_frame_test.png").unwrap();
-    println!("Main frame has been built");
+    let screenshot = DynamicImage::ImageRgba8(main_frame);
+    screenshot
 }

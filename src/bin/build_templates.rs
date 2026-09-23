@@ -1,5 +1,4 @@
 use image::GenericImageView;
-use imageproc::definitions::Image;
 
 fn main() {
     let path = "/home/louis/Projects/swapou_solver/test_img/main_frame_test.png";
@@ -13,22 +12,23 @@ pub fn build_templates(path: &str) {
     ];
 
     let img = image::open(path).unwrap();
+    let crop_size: u32 = 50;
+    let half = crop_size as i32 / 2;
 
     for (i, &cx) in x_centers.iter().enumerate() {
         for (j, &cy) in y_centers.iter().enumerate() {
-            let size: i32 = 67 / 2;
-            let x = *&cx - size;
-            let y = *&cy - size;
+            let x = cx - half;
+            let y = cy - half;
 
             if x < 0 || y < 0 {
                 continue;
             }
 
-            let tmp_img = &img.crop_imm(x as u32, y as u32, 67, 67);
+            let tmp_img = img.crop_imm(x as u32, y as u32, crop_size, crop_size);
             tmp_img
-                .save(format!("test_img/gen_templates/{x}_{y}_template.png"))
+                .save(format!("test_img/gen_templates/{i}_{j}_template.png"))
                 .unwrap();
-            println!("template has been built");
+            println!("template {i},{j} built");
         }
     }
 }
